@@ -1,7 +1,6 @@
 footer{
   grid-area: footer;
   padding: 0 .5rem .5rem .5rem;
-  height: 5.5rem;
   
   @media (width >= 768px) {
     padding: 0 1rem 1rem 0;
@@ -13,5 +12,26 @@ footer{
     align-items: center;
     justify-content: center;
     height: 100%;
+    font-size: .8rem;
+    
+    .copyright{
+      color: var(--grey-70);
+      text-align: center;
+    }
+
+    .footer-links{
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--grey-50)
+    }
+
+    .socials{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      color: var(--grey-50)
+    }
   }
 }
