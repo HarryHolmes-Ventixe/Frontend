@@ -22,7 +22,11 @@ body{
   justify-content: center;
   align-items: center;
   height: 100%;
-  padding-right: 1rem;
+  padding-inline: 1rem;
+
+  @media (width >= 768px) {
+    padding-left: 0;
+  }
 }
 
 .portal-wrapper{
@@ -35,8 +39,7 @@ body{
   "footer";
   gap: .7rem;
   min-height: 100vh;
-  padding-left: 1rem;
-
+  
   @media (width >= 768px) {
     grid-template-columns: 4.5rem 1fr;
     grid-template-rows: auto 1fr auto;
@@ -45,8 +48,9 @@ body{
     "nav main"
     "nav footer";
     gap: 1rem;
+    padding-left: 1rem;
   }
-
+  
   @media (width >= 1400px) {
     grid-template-columns: 14rem 1fr;
     grid-template-rows: auto 1fr auto;

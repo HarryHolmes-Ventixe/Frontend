@@ -15,5 +15,65 @@ nav {
     height: 100%;
     padding: 1rem;
     border-radius: 1rem;
+
+    .logo-container{
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      justify-content: center;
+      
+      h2{
+        display: none;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: var(--secondary-110);
+
+        @media (width >= 1400px){
+          display: flex;
+        }
+      }
+    }
+
+
+
+    .signout-container{
+      margin-top: auto;
+      cursor: pointer;
+
+      .signout-tablet{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--secondary-100);
+        background-color: var(--cool-grey-20);
+        padding: .5rem;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+
+        @media (width >= 1400px){
+          display: none;
+        }
+      }
+
+      .signout-desktop{
+        display: none;
+
+        @media (width >= 1400px){
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
+          padding: .5rem;
+          width: 10rem;
+          border-radius: 1rem;
+          color: var(--secondary-100);
+          background-color: var(--cool-grey-20);
+          
+        }
+      }
+
+
+    }
   }
 }
