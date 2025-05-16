@@ -4,67 +4,73 @@
   align-items: center;
   height: 2rem;
   border-radius: 2rem;
+  border: none;
+  cursor: pointer;
   
-  &-small{
+  &--small{
     width: 3.5rem;   
   }
 
-  &-small-r{
+  &--small-r{
     width: 3.8rem;
   }
 
-  &-small-l{
+  &--small-l{
     width:4.4rem;
   }
 
-  &-small-lr{
+  &--small-lr{
     width: 5.5rem;
   }
 
-  &-medium{
+  &--medium{
     width: 4.2rem;
   }
 
-  &-medium-r{
+  &--medium-r{
     width: 5.1rem;
   }
 
-  &-medium-l{
+  &--medium-l{
     width: 5.5rem;
   }
 
-  &-medium-lr{
+  &--medium-lr{
     width: 6.4rem;
   }
 
-  &-large{
+  &--large{
     width: 5rem;
   }
 
-  &-large-r{
+  &--large-r{
     width: 6rem;
   }
 
-  &-large-l{
+  &--large-l{
     width: 6.3rem;
   }
 
-  &-large-lr{
+  &--large-lr{
     width: 7.3rem;
   }
 
-  &-primary{
+  &--primary{
     background-color: var(--primary-100);
     color: var(--grey-10);
   }
 
-  &-secondary{
+  &--secondary{
     background-color: var(--cool-grey-10);
     color: var(--secondary-100);
   }
 
-  &-outline{
+  &--outline{
     color: var(--grey-30);
     border-color: var(--grey-90);
+  }
+
+  &--status{
+    background-color: var(--grey-10);
   }
 }

@@ -1,0 +1,109 @@
+.events-container {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: "filter events";
+  gap: 2rem;
+  position: relative;
+
+  .event-status-filter{
+    grid-area: filter;
+    display: flex;
+    gap: 1rem;
+    margin-right: auto;
+  }
+
+  .events-list{
+    grid-area: events;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    padding-bottom: 2rem;
+
+    .event-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 17rem;
+      height: 21.2rem;
+      background-color: var(--cool-grey-10);
+      border-radius: 1rem;
+      padding: 1rem;
+      position: relative;
+
+      .event-image-wrapper {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+      }
+
+      .event-image {
+        width: 250px;
+        height: 209px;
+        background-color: red;
+        border-radius: 0.75rem;
+        display: block;
+        margin: 0 auto;
+      }
+
+      .event-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem;
+
+        .event-type, .event-status {
+          background: rgba(255,255,255,0.85);
+          padding: 0.2rem 0.6rem;
+          border-radius: 0.5rem;
+          font-size: 0.8rem;
+        }
+      }
+
+      .event-details {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 1rem;
+
+        .event-date {
+          font-size: 0.8rem;
+          color: var(--grey-70);
+          margin-bottom: 0.5rem;
+        }
+
+        .event-title {
+          font-size: 1rem;
+          font-weight: bold;
+          margin-bottom: 0.5rem;
+        }
+
+        .event-location {
+          font-size: 0.8rem;
+          color: var(--grey-80);
+          margin-bottom: 0.5rem;
+        }
+
+        .event-bottom {
+          display: flex;
+          gap: 1rem;
+          margin-top: 0.5rem;
+
+          .event-capacity{
+            margin-right: auto;
+          }
+
+          .event-cost{
+
+          }
+        }
+      }
+    }
+  }
+}
