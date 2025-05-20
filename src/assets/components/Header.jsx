@@ -5,6 +5,9 @@ const Header = () => {
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter(x => x);
 
+  // GitHub Copilot helped me retrieve the event title and set it as the breadcrumb item and the page title.
+  const eventTitle = location.state?.title;
+
   const breadcrumbItems = [
     <Link key="home" to="/" className={pathnames.length === 0 ? 'active' : ''}>Dashboard</Link>
   ];
@@ -12,6 +15,10 @@ const Header = () => {
   pathnames.forEach((value, idx) => {
     const to = '/' + pathnames.slice(0, idx + 1).join('/');
     const isLast = idx === pathnames.length - 1;
+    let label = decodeURIComponent(value.charAt(0).toUpperCase() + value.slice(1));
+    if (isLast && eventTitle) {
+      label = eventTitle;
+    }
     breadcrumbItems.push(
       <span key={to + '-sep'}> / </span>,
       <Link
@@ -19,17 +26,19 @@ const Header = () => {
         to={to}
         className={isLast ? 'active' : ''}
       >
-        {decodeURIComponent(value.charAt(0).toUpperCase() + value.slice(1))}
+        {label}
       </Link>
     );
   });
 
   const pageTitle =
-  pathnames.length === 0
-    ? 'Dashboard'
-    : decodeURIComponent(pathnames[pathnames.length - 1])
-        .replace(/-/g, ' ')
-        .replace(/^\w/, c => c.toUpperCase());
+    eventTitle
+      ? eventTitle
+      : pathnames.length === 0
+        ? 'Dashboard'
+        : decodeURIComponent(pathnames[pathnames.length - 1])
+            .replace(/-/g, ' ')
+            .replace(/^\w/, c => c.toUpperCase());
 
   return (
     <header>

@@ -15,8 +15,8 @@ function App() {
         <Route element={<PortalLayout />}>
           <Route element={<CenterLayout />}>
             {/* <Route path="/" element={<Dashboard/>} /> */}
-            {/* <Route path="/events" element={<Events />} /> */}
-            <Route path="/" element={<Events />} />
+            <Route path="/events" element={<Events />} />
+            {/* <Route path="/" element={<Events />} /> */}
             <Route path="/events/:id" element={<EventDetails />} />
 
           </Route>

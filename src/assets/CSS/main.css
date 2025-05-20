@@ -309,6 +309,99 @@ a {
   }
 }
 
+.event-details-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.event-details-container .event-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 21rem;
+}
+@media (width >= 768px) {
+  .event-details-container .event-details {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: "image image" "details tickets" "description description";
+    max-width: 41rem;
+  }
+}
+@media (width >= 1400px) {
+  .event-details-container .event-details {
+    width: 41rem;
+  }
+}
+.event-details-container .event-details .details-image {
+  grid-area: image;
+  background-color: var(--cool-grey-10);
+  height: 13rem;
+  width: 100%;
+  border-radius: 1rem 1rem 0 0;
+}
+@media (width >= 768px) {
+  .event-details-container .event-details .details-image {
+    height: 22rem;
+  }
+}
+.event-details-container .event-details .details-info {
+  grid-area: details;
+  padding: 1rem;
+}
+.event-details-container .event-details .details-info .details-title {
+  font-weight: 500;
+}
+@media (width >= 768px) {
+  .event-details-container .event-details .details-info .details-title {
+    font-size: 1.5rem;
+  }
+}
+.event-details-container .event-details .details-info .details-date, .event-details-container .event-details .details-info .details-location {
+  font-size: 0.8rem;
+  color: var(--grey-70);
+}
+.event-details-container .event-details .details-info .details-location {
+  border-bottom: 1px solid var(--grey-30);
+  padding-bottom: 1rem;
+}
+.event-details-container .event-details .details-tickets {
+  grid-area: tickets;
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr;
+  border-bottom: 1px solid var(--grey-30);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+.event-details-container .event-details .details-tickets .tickets-info .tickets-sold {
+  font-size: 0.7rem;
+  color: var(--grey-70);
+}
+.event-details-container .event-details .details-tickets .details-price .starts-from {
+  font-size: 0.7rem;
+  color: var(--grey-70);
+}
+.event-details-container .event-details .details-tickets .details-price .price {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--primary-100);
+  margin: 0;
+}
+.event-details-container .event-details .details-description {
+  grid-area: description;
+}
+.event-details-container .event-details .details-description .about {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--secondary-100);
+}
+.event-details-container .event-details .details-description .description {
+  font-size: 0.8rem;
+  color: var(--grey-90);
+}
+
 footer {
   grid-area: footer;
   padding: 0 0.5rem 0.5rem 0.5rem;
@@ -588,7 +681,7 @@ nav .nav-container .nav-links .nav-link .nav-text {
   }
   nav .nav-container .nav-links .nav-link {
     justify-content: flex-start;
-    padding-left: 2rem;
+    padding-left: 2.25rem;
   }
 }
 nav .nav-container .nav-links a.active, nav .nav-container .nav-links .nav-link.active {

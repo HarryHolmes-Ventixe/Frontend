@@ -18,7 +18,10 @@ const EventItem = ({item}) => {
   }
 
   return (
-    <Link to={`/events/${item.id}`}>
+    <Link 
+    to={`/events/${item.id}`}
+    state={{ title: item.title }}
+    >
       
       <div className="event-card">
         <div className="card-section-one">

@@ -1,0 +1,111 @@
+.event-details-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .event-details{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 21rem;
+
+    @media (width >= 768px){
+      display: grid;
+      grid-template-columns: auto auto;
+      grid-template-rows: auto auto auto;
+      grid-template-areas: 
+      "image image"
+      "details tickets"
+      "description description";
+      max-width: 41rem;
+    }
+
+    @media (width >= 1400px){
+      width: 41rem;
+    }
+    
+    .details-image{
+      grid-area: image;
+      background-color: var(--cool-grey-10);
+      height: 13rem;
+      width: 100%;
+      border-radius: 1rem 1rem 0 0;
+
+      @media (width >= 768px){
+        height: 22rem;
+        
+      }
+    }
+
+    .details-info{
+      grid-area: details;
+      padding: 1rem;
+
+      
+
+      .details-title{
+        font-weight: 500;
+
+        @media (width >= 768px){
+          font-size: 1.5rem;
+        }
+      }
+
+      .details-date, .details-location{
+        font-size: 0.8rem;
+        color: var(--grey-70);
+      }
+
+      .details-location{
+        border-bottom: 1px solid var(--grey-30);
+        padding-bottom: 1rem;
+      }
+    }
+
+    .details-tickets{
+      grid-area: tickets;
+      display: grid;
+      grid-template-columns: 2fr 1fr 2fr;
+      border-bottom: 1px solid var(--grey-30);
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+
+      .tickets-info{
+        .tickets-sold{
+          font-size: 0.7rem;
+          color: var(--grey-70);
+        }
+      }
+
+      .details-price{
+        .starts-from{
+          font-size: 0.7rem;
+          color: var(--grey-70);
+        }
+        
+        .price{
+          font-size: 1.5rem;
+          font-weight: 500;
+          color: var(--primary-100);
+          margin: 0;
+        }
+      }
+    }
+
+    .details-description{
+      grid-area: description;
+
+      .about{
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--secondary-100);
+      }
+
+      .description{
+        font-size: 0.8rem;
+        color: var(--grey-90);
+      }
+    }
+  }
+}
