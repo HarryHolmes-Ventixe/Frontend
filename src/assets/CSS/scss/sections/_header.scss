@@ -33,6 +33,35 @@ header{
       margin-right: auto;
       display: flex;
       flex-direction: column;
+      gap: .5rem;
+
+      .breadcrumb{
+        width: 100%;
+        display: flex;
+        gap: .5rem;
+      }
+
+      .breadcrumb a {
+        display: none;
+        color: var(--primary-100);
+      }
+
+       .breadcrumb span{
+        display: none;
+        color: var(--grey-50);
+       }
+
+      .breadcrumb a.active {
+        display: none;
+        color: var(--grey-80);
+      }
+
+      @media (width >= 768px) {
+        .breadcrumb a, .breadcrumb a.active, .breadcrumb span {
+          display: flex;
+          flex-direction: row;
+        };
+      }
 
       h2{
         font-size: 1rem;
@@ -41,19 +70,10 @@ header{
         margin: 0;
       }
 
-      p{
-        display:none;
-      }
-
       @media (width >= 768px) {
         h2{
           font-size: 1.5rem;
           color: var(--secondary-100);
-        }
-
-        p{
-          display: flex;
-          font-size: .8rem;
         }
       }
     }

@@ -29,6 +29,11 @@ body{
   }
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+  }
+
 .portal-wrapper{
   display: grid; 
   grid-template-columns: 1fr;

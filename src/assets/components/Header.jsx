@@ -1,6 +1,36 @@
 import React from 'react'
+import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
+  const location = useLocation();
+  const pathnames = location.pathname.split('/').filter(x => x);
+
+  const breadcrumbItems = [
+    <Link key="home" to="/" className={pathnames.length === 0 ? 'active' : ''}>Dashboard</Link>
+  ];
+
+  pathnames.forEach((value, idx) => {
+    const to = '/' + pathnames.slice(0, idx + 1).join('/');
+    const isLast = idx === pathnames.length - 1;
+    breadcrumbItems.push(
+      <span key={to + '-sep'}> / </span>,
+      <Link
+        key={to}
+        to={to}
+        className={isLast ? 'active' : ''}
+      >
+        {decodeURIComponent(value.charAt(0).toUpperCase() + value.slice(1))}
+      </Link>
+    );
+  });
+
+  const pageTitle =
+  pathnames.length === 0
+    ? 'Dashboard'
+    : decodeURIComponent(pathnames[pathnames.length - 1])
+        .replace(/-/g, ' ')
+        .replace(/^\w/, c => c.toUpperCase());
+
   return (
     <header>
       <div class="header-container">
@@ -9,9 +39,9 @@ const Header = () => {
         </div>
         <div class="breadcrumb-container">
           <div class="breadcrumb">
-            <p>Breadcrumb</p>
+            {breadcrumbItems}
           </div>
-          <h2>Page title</h2>
+          <h2>{pageTitle}</h2>
         </div>
 
         <div class="more-container">

@@ -21,7 +21,8 @@ nav {
       gap: 1rem;
       align-items: center;
       justify-content: center;
-      
+      margin-bottom: 2rem;
+
       h2{
         display: none;
         font-size: 1.5rem;
@@ -34,7 +35,54 @@ nav {
       }
     }
 
+    .nav-links {
+      display: none;
 
+      @media (width >= 768px) {
+        display: flex;
+      }
+
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 2rem;
+      color: var(--secondary-100);
+
+      .nav-link {
+        width: 100%;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .nav-icon {
+          display: inline-flex;
+          align-items: center;
+          margin-right: .5rem;
+          font-size: 1.2rem;
+        }
+        .nav-text {
+          display: none;
+        }
+      }
+
+      @media (width >= 1400px) {
+        .nav-link .nav-text {
+          display: flex;
+        }
+
+        .nav-link{
+          justify-content: flex-start;
+          padding-left: 2rem;
+        }
+      }
+
+      a.active, .nav-link.active {
+        color: var(--primary-100);
+        font-weight: 600;
+      }
+    }
 
     .signout-container{
       margin-top: auto;
