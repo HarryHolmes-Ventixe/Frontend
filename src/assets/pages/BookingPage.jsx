@@ -4,8 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 const BookingPage = () => {
   const {id} = useParams()
   const [event, setEvent] = useState({})
-  const [formData, setFormData] = useState({ event: id, firstName: '', lastName: '', email: '', streetName: '', postalCode: '', city: '' })
-  // const {navigate} = useNavigate()
+  const [formData, setFormData] = useState({ event: id, firstName: '', lastName: '', email: '', streetName: '', postalCode: '', city: '', ticketQuantity: '' })
+  const {navigate} = useNavigate()
 
   useEffect(() => {
     getEvent()
@@ -22,7 +22,7 @@ const BookingPage = () => {
 
   const postBooking = async () => {
     try{
-      const res = await fetch(`https://hh-ventixe-bookingservice-caayb0hvfjczdega.swedencentral-01.azurewebsites.net/api/Bookings/`, {
+      const res = await fetch(`https://hh-ventixe-bookingservice-ddh2g9c2gsetfng9.swedencentral-01.azurewebsites.net/api/bookings`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -33,10 +33,12 @@ const BookingPage = () => {
       if (res.ok) {
         console.log('Booking successful')
         //  You can redirect the user to a confirmation page or show a success message
+        navigate ('/')
         // navigate(`/events/${id}/confirmation`)
       }
       else {
         console.error('Error booking the event')
+        console.error('Submitted form data:', formData)
       }
 
     } catch (error) {
@@ -121,7 +123,7 @@ const BookingPage = () => {
 
         <div className="form-input">
           <label>Number of Tickets (Max 4 per booking)</label>
-          <select name="tickets" value={formData.tickets || ''} onChange={handleChange} required>
+          <select name="ticketQuantity" value={formData.ticketQuantity || ''} onChange={handleChange} required>
             <option value="" disabled>Select tickets</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -133,7 +135,7 @@ const BookingPage = () => {
         <div className="form-bottom">
           <div className="cost">
             <p className="cost-text">Total cost: </p>
-            <p className="cost-value">${event.price * (formData.tickets || 1)}</p>
+            <p className="cost-value">${event.price * (formData.ticketQuantity || 1)}</p>
           </div>
 
           <button type="submit" className="confirm-booking btn btn--large-lr btn--primary">Book now</button>
