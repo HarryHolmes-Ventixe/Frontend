@@ -40,8 +40,10 @@
 
     .details-info{
       grid-area: details;
-      padding: 1rem;
-
+      padding-inline: 1rem;
+      width: 100%;
+      border-bottom: 1px solid var(--grey-30);
+      margin-bottom: 1rem;
       
 
       .details-title{
@@ -58,7 +60,6 @@
       }
 
       .details-location{
-        border-bottom: 1px solid var(--grey-30);
         padding-bottom: 1rem;
       }
     }
@@ -70,8 +71,15 @@
       border-bottom: 1px solid var(--grey-30);
       padding-bottom: 1rem;
       margin-bottom: 1rem;
+      width: 100%;
+
+      @media (width >= 1400px){
+        padding-top: 3.8rem;
+        padding-bottom: 1.6rem;
+      }
 
       .tickets-info{
+
         .tickets-sold{
           font-size: 0.7rem;
           color: var(--grey-70);
@@ -89,6 +97,17 @@
           font-weight: 500;
           color: var(--primary-100);
           margin: 0;
+        }
+      }
+
+      .details-button{
+        .details-book{
+          margin-left: auto;
+          margin-top: 1rem;
+
+          @media (width >= 768px){
+            height: 3rem;
+          }
         }
       }
     }

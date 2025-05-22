@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 const EventDetails = () => {
   const {id} = useParams()
+  const [event, setEvent] = useState({})
 
-    const [event, setEvent] = useState({})
-  
-    const getEvent = async () => {
-      const res = await fetch(`https://hh-ventixe-eventservice-caayb0hvfjczdega.swedencentral-01.azurewebsites.net/api/Events/${id}`)
-      
-      if (res.ok) {
-        const response = await res.json()
-        setEvent(response.result)
-      }
-    }
+  const getEvent = async () => {
+    const res = await fetch(`https://hh-ventixe-eventservice-caayb0hvfjczdega.swedencentral-01.azurewebsites.net/api/Events/${id}`)
     
-    useEffect(() => {
-      getEvent()
-    }, [])
+    if (res.ok) {
+      const response = await res.json()
+      setEvent(response.result)
+    }
+  }
+  
+  useEffect(() => {
+    getEvent()
+  }, [])
 
-    const formatDate = (string) => {
+  const formatDate = (string) => {
     const date = new Date(string);
     const dateSection = date.toLocaleDateString('en-US', {
       month: 'long',
@@ -53,10 +52,15 @@ const EventDetails = () => {
           </div>
 
           <div className="details-price">
-            <p class="starts-from">Starts from</p>
+            <p className="starts-from">Starts from</p>
             <p className="price">${event.price}</p>
           </div>
+
+          <div className="details-button">
+            <Link to={`/events/${id}/booking`} className="details-book btn btn--large-r btn--primary">Book now</Link>
+          </div>
         </div>
+
         <div className="details-description">
           <p className="about">About Event</p>
           <p className="description">{event.description}</p>

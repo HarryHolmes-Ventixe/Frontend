@@ -16,6 +16,9 @@ const Header = () => {
     const to = '/' + pathnames.slice(0, idx + 1).join('/');
     const isLast = idx === pathnames.length - 1;
     let label = decodeURIComponent(value.charAt(0).toUpperCase() + value.slice(1));
+    if (pathnames.includes('booking') && value !== 'booking' && idx === pathnames.length - 2) {
+      return;
+    }
     if (isLast && eventTitle) {
       label = eventTitle;
     }
@@ -42,38 +45,38 @@ const Header = () => {
 
   return (
     <header>
-      <div class="header-container">
-        <div class='logo'>
-          <img src='/images/logo.svg' alt="Logo" class="logo"/>
+      <div className="header-container">
+        <div className='logo'>
+          <img src='/images/logo.svg' alt="Logo" className="logo"/>
         </div>
-        <div class="breadcrumb-container">
-          <div class="breadcrumb">
+        <div className="breadcrumb-container">
+          <div className="breadcrumb">
             {breadcrumbItems}
           </div>
           <h2>{pageTitle}</h2>
         </div>
 
-        <div class="more-container">
-          <i class="fa-regular fa-bars"></i>
+        <div className="more-container">
+          <i className="fa-regular fa-bars"></i>
 
-          <div class="options">
-            <div class="search option">
-              <div class="search-bar">
+          <div className="options">
+            <div className="search option">
+              <div className="search-bar">
                 <p>Search anything</p>
               </div>
-              <i class="fa-solid fa-magnifying-glass"></i>
+              <i className="fa-solid fa-magnifying-glass"></i>
             </div>
-            <div class="notifications option">
-              <i class="fa-solid fa-bell"></i>
+            <div className="notifications option">
+              <i className="fa-solid fa-bell"></i>
             </div>
-            <div class="settings option">
-              <i class="fa-solid fa-gear"></i>
+            <div className="settings option">
+              <i className="fa-solid fa-gear"></i>
             </div>
-            <div class="profile option">
-              <i class="fa-solid fa-user"></i>
-              <div class="profile-info">
-                <p class="name">User Name</p>
-                <p class="status">User Status</p>
+            <div className="profile option">
+              <i className="fa-solid fa-user"></i>
+              <div className="profile-info">
+                <p className="name">User Name</p>
+                <p className="status">User Status</p>
               </div>
             </div>
           </div>

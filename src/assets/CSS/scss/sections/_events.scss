@@ -133,6 +133,7 @@
       @media (width >= 768px){
         border-top: none;
       }
+    
 
       .event-price{
         display: flex;
@@ -143,12 +144,21 @@
         border-radius: 1rem;
         background-color: var(--cool-grey-10);
         color: var(--primary-100);
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 600;
         margin-left: auto;
 
         @media (width >= 1400px){
           width:4.5rem;
+          height: 3rem;
+        }
+      }
+
+      .book{
+        margin-left: 1rem;
+        font-weight: 600;
+
+        @media (width >= 768px){
           height: 3rem;
         }
       }
