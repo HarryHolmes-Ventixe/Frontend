@@ -4,8 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 const BookingPage = () => {
   const {id} = useParams()
   const [event, setEvent] = useState({})
-  const [formData, setFormData] = useState({ event: id, firstName: '', lastName: '', email: '', streetName: '', postalCode: '', city: '', ticketQuantity: '' })
-  const {navigate} = useNavigate()
+  const [formData, setFormData] = useState({ eventId: id, firstName: '', lastName: '', email: '', streetName: '', postalCode: '', city: '', ticketQuantity: 1 })
+  const navigate = useNavigate()
 
   useEffect(() => {
     getEvent()
@@ -38,7 +38,6 @@ const BookingPage = () => {
       }
       else {
         console.error('Error booking the event')
-        console.error('Submitted form data:', formData)
       }
 
     } catch (error) {
@@ -50,7 +49,7 @@ const BookingPage = () => {
     const { name, value } = e.target
     setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: name === "ticketQuantity" ? Number(value) : value
     }))
   }
 
