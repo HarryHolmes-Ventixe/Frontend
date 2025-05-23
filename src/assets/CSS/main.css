@@ -33,6 +33,7 @@
   --cool-grey-30: #DDDEED;
   --cool-grey-20: #E4E5F5;
   --cool-grey-10: #EEEFFF;
+  --primary-90-background: #f489faf3;
 }
 
 * {
@@ -95,6 +96,10 @@ a {
   }
 }
 
+* .no-scroll {
+  overflow: hidden;
+}
+
 .btn {
   display: flex;
   justify-content: center;
@@ -139,6 +144,7 @@ a {
 }
 .btn--large-lr {
   width: 7.3rem;
+  font-size: 1rem;
 }
 .btn--primary {
   background-color: var(--primary-100);
@@ -154,6 +160,57 @@ a {
 }
 .btn--status {
   background-color: var(--grey-10);
+}
+
+#sign-in, #sign-up {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#sign-in .auth-form, #sign-up .auth-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--cool-grey-20);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 1rem var(--primary-100);
+}
+#sign-in .auth-form h1, #sign-up .auth-form h1 {
+  color: var(--secondary-90);
+  margin-bottom: auto;
+  font-weight: 500;
+}
+#sign-in .auth-form .auth-input, #sign-up .auth-form .auth-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+#sign-in .auth-form .auth-input label, #sign-up .auth-form .auth-input label {
+  font-size: 0.9rem;
+  color: var(--cool-grey-100);
+  margin-left: 0.5rem;
+}
+#sign-in .auth-form .auth-input input, #sign-up .auth-form .auth-input input {
+  padding: 0.5rem 1rem;
+  border: solid 1px var(--grey-80);
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+#sign-in .auth-form .auth-btn, #sign-up .auth-form .auth-btn {
+  margin-top: auto;
+}
+#sign-in .sign-up-form, #sign-up .sign-up-form {
+  height: 30rem;
+  width: 25rem;
+}
+#sign-in .sign-in-form, #sign-up .sign-in-form {
+  height: 25rem;
+  width: 20rem;
 }
 
 #booking-page {
@@ -656,13 +713,61 @@ header .header-container .breadcrumb-container h2 {
     color: var(--secondary-100);
   }
 }
-header .header-container .more-container .fa-bars {
-  display: flex;
+header .header-container .more-container .btn-mobile {
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 1001;
+  position: relative;
+}
+header .header-container .more-container .btn-mobile:hover {
+  color: var(--color-primary);
 }
 @media (width >= 768px) {
-  header .header-container .more-container .fa-bars {
+  header .header-container .more-container .btn-mobile {
     display: none;
   }
+}
+header .header-container .more-container .navigation nav {
+  opacity: 0;
+  background-color: var(--primary-90-background);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header .header-container .more-container .navigation .show {
+  opacity: 1;
+  pointer-events: auto;
+}
+header .header-container .more-container .navigation .nav-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--secondary-100);
+  gap: 5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+header .header-container .more-container .navigation .nav-links p:hover {
+  cursor: pointer;
+  color: var(--color-primary-hover);
+}
+header .header-container .more-container .navigation .nav-link {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+header .header-container .more-container .navigation .nav-link:hover {
+  color: var(--color-primary-hover);
 }
 header .header-container .more-container .options {
   display: none;
@@ -683,7 +788,7 @@ header .header-container .more-container .options .option {
   header .header-container .more-container .options {
     display: flex;
   }
-  header .header-container .more-container .options .profile-info, header .header-container .more-container .options .search-bar {
+  header .header-container .more-container .options .profile-info, header .header-container .more-container .options .search-bar, header .header-container .more-container .options .auth-container {
     display: none;
   }
 }
@@ -721,6 +826,10 @@ header .header-container .more-container .options .option {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+  }
+  header .header-container .more-container .options .profile .auth-container {
+    display: block;
+    font-size: 0.9rem;
   }
   header .header-container .more-container .options .profile .profile-info {
     display: flex;

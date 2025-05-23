@@ -1,9 +1,11 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom';
+import MobileMenu from '../utilities/MobileMenu';
 
 const Header = () => {
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter(x => x);
+  const isLoggedIn = false; // replace with logic from the AuthService MVP
 
   // GitHub Copilot helped me retrieve the event title and set it as the breadcrumb item and the page title.
   const eventTitle = location.state?.title;
@@ -57,7 +59,7 @@ const Header = () => {
         </div>
 
         <div className="more-container">
-          <i className="fa-regular fa-bars"></i>
+          <MobileMenu />
 
           <div className="options">
             <div className="search option">
@@ -66,18 +68,31 @@ const Header = () => {
               </div>
               <i className="fa-solid fa-magnifying-glass"></i>
             </div>
+
             <div className="notifications option">
               <i className="fa-solid fa-bell"></i>
             </div>
+
             <div className="settings option">
               <i className="fa-solid fa-gear"></i>
             </div>
+
             <div className="profile option">
-              <i className="fa-solid fa-user"></i>
-              <div className="profile-info">
-                <p className="name">User Name</p>
-                <p className="status">User Status</p>
-              </div>
+              
+              <Link to="/sign-in" className="btn-sign-in"><i className="fa-solid fa-user"></i></Link>
+
+              {/*replace with logic from the AuthService MVP */}
+              {!isLoggedIn ? (
+                <div className="auth-container">
+                  <Link to="/sign-in" className="btn-sign-in">Sign In / <br/></Link>
+                  <Link to="/sign-up" className="btn-sign-up">Sign Up</Link>
+                </div>
+              ) : (
+                <Link to="/profile" className="profile-info">
+                  <p className="name">User Name</p>
+                  <p className="status">User Status</p>
+                </Link>
+              )}
             </div>
           </div>
         </div>

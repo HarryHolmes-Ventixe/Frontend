@@ -79,13 +79,70 @@ header{
     }
 
    .more-container{    
-      .fa-bars{
-        display: flex;
+      .btn-mobile {
+        background-color: transparent;
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+        z-index: 1001;
+        position: relative;
+        
+        &:hover {
+          color: (var(--color-primary));
+        }
 
         @media (width >= 768px){
           display: none;
         }
-      } 
+      }
+
+      .navigation {
+        nav {
+          opacity: 0;
+          background-color: var(--primary-90-background);
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 1000;
+          pointer-events: none;
+          transition: opacity 0.3s ease;
+          display: flex;
+          justify-content: center;
+          align-items: center; 
+        }
+        
+        .show {
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        .nav-links {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          color: var(--secondary-100);
+          gap: 5rem; 
+          font-size: 1.5rem;
+          font-weight: 600;
+          
+          p:hover {
+            cursor: pointer;
+            color: var(--color-primary-hover);
+          }
+        }
+
+        .nav-link {
+          text-decoration: none;
+          color: inherit;
+          outline: none;
+      
+          &:hover {
+            color: var(--color-primary-hover);
+          }
+        }
+      }
 
       .options{
         display: none;
@@ -106,7 +163,7 @@ header{
         @media (width >= 768px){
           display: flex;
 
-          .profile-info, .search-bar{
+          .profile-info, .search-bar, .auth-container{
             display: none;
           }
         }
@@ -149,6 +206,10 @@ header{
               border-radius: 50%;
             }
             
+            .auth-container{
+              display: block;
+              font-size: .9rem;
+            }
 
             .profile-info{
               display: flex;
