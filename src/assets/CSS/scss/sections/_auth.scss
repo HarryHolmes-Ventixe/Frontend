@@ -5,54 +5,84 @@
   align-items: center;
   justify-content: center;
 
-  .auth-form{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--cool-grey-20);
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 0 1rem var(--primary-100);
-
-    h1{
-      color: var(--secondary-90);
-      margin-bottom: auto;
-      font-weight: 500;
-    }
-
-    .auth-input{
+  .auth-form-container{
+    .auth-form{
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--cool-grey-20);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 1rem var(--primary-100);
+
+      h1{
+        color: var(--secondary-90);
+        margin-bottom: auto;
+        font-weight: 500;
+        font-size: 1.6rem;
+
+        @media (width >= 768px){
+          font-size: 2rem;
+        }
+      }
+
+      .auth-input{
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+        width: 100%;
+
+        label{
+          font-size: 0.9rem;
+          color: var(--cool-grey-100);
+          margin-left: .5rem;
+        }
+
+        input{
+          padding: .5rem 1rem;
+          border: solid 1px var(--grey-80);
+          border-radius: 1rem;
+          margin-bottom: 1rem;
+        }
+      }
+
+      .auth-btn{
+        margin-top: auto;
+      }
+    }
+
+    .sign-up-form{
+      height: 30rem;
+      width: 25rem;
+    }
+
+    .sign-in-form{
+      height: 25rem;
+      width: 20rem;
+    }
+
+    .no-account{
+      margin-top: .5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       gap: .5rem;
-      width: 100%;
+      font-size: .9rem;
 
-      label{
-        font-size: 0.9rem;
-        color: var(--cool-grey-100);
-        margin-left: .5rem;
+      p{
+        color: var(--grey-80);
       }
 
-      input{
-        padding: .5rem 1rem;
-        border: solid 1px var(--grey-80);
-        border-radius: 1rem;
-        margin-bottom: 1rem;
+      a{
+        color: var(--primary-100);
+        text-decoration: none;
+        font-weight: 500;
+
+        &:hover{
+          text-decoration: underline;
+        }
       }
     }
-
-    .auth-btn{
-      margin-top: auto;
-    }
-  }
-
-  .sign-up-form{
-    height: 30rem;
-    width: 25rem;
-  }
-
-  .sign-in-form{
-    height: 25rem;
-    width: 20rem;
   }
 }

@@ -12,6 +12,7 @@ const SignInPage = () => {
         headers: {
           'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify(formData)
       })
 
@@ -42,19 +43,26 @@ const SignInPage = () => {
 
   return (
     <div id="sign-in">
-      <form className="auth-form sign-in-form" onSubmit={handleSubmit}>
-        <h1>Sign In</h1>
-        <div className="auth-input">
-          <label htmlFor="email">Email:</label>
-          <input type="email" name="email" value={formData.email} onChange={handleChange} required />
-        </div>
+      <div className="auth-form-container">
+        <form className="auth-form sign-in-form" onSubmit={handleSubmit}>
+          <h1>Sign In</h1>
+          <div className="auth-input">
+            <label htmlFor="email">Email:</label>
+            <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+          </div>
 
-        <div className="auth-input">
-          <label htmlFor="password">Password:</label>
-          <input type="password" name="password" value={formData.password} onChange={handleChange} required />
+          <div className="auth-input">
+            <label htmlFor="password">Password:</label>
+            <input type="password" name="password" value={formData.password} onChange={handleChange} required />
+          </div>
+          <button type="submit" className="auth-btn btn btn--large-lr btn--primary">Sign In</button>
+        </form>
+
+        <div className="no-account">
+          <p>Don't have an account? </p>
+          <a href='sign-up'>Sign up</a>
         </div>
-        <button type="submit" className="auth-btn btn btn--large-lr btn--primary">Sign In</button>
-      </form>
+      </div>
     </div>
   )
 }

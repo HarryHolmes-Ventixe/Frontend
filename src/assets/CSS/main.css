@@ -169,7 +169,7 @@ a {
   align-items: center;
   justify-content: center;
 }
-#sign-in .auth-form, #sign-up .auth-form {
+#sign-in .auth-form-container .auth-form, #sign-up .auth-form-container .auth-form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -179,38 +179,63 @@ a {
   border-radius: 1rem;
   box-shadow: 0 0 1rem var(--primary-100);
 }
-#sign-in .auth-form h1, #sign-up .auth-form h1 {
+#sign-in .auth-form-container .auth-form h1, #sign-up .auth-form-container .auth-form h1 {
   color: var(--secondary-90);
   margin-bottom: auto;
   font-weight: 500;
+  font-size: 1.6rem;
 }
-#sign-in .auth-form .auth-input, #sign-up .auth-form .auth-input {
+@media (width >= 768px) {
+  #sign-in .auth-form-container .auth-form h1, #sign-up .auth-form-container .auth-form h1 {
+    font-size: 2rem;
+  }
+}
+#sign-in .auth-form-container .auth-form .auth-input, #sign-up .auth-form-container .auth-form .auth-input {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   width: 100%;
 }
-#sign-in .auth-form .auth-input label, #sign-up .auth-form .auth-input label {
+#sign-in .auth-form-container .auth-form .auth-input label, #sign-up .auth-form-container .auth-form .auth-input label {
   font-size: 0.9rem;
   color: var(--cool-grey-100);
   margin-left: 0.5rem;
 }
-#sign-in .auth-form .auth-input input, #sign-up .auth-form .auth-input input {
+#sign-in .auth-form-container .auth-form .auth-input input, #sign-up .auth-form-container .auth-form .auth-input input {
   padding: 0.5rem 1rem;
   border: solid 1px var(--grey-80);
   border-radius: 1rem;
   margin-bottom: 1rem;
 }
-#sign-in .auth-form .auth-btn, #sign-up .auth-form .auth-btn {
+#sign-in .auth-form-container .auth-form .auth-btn, #sign-up .auth-form-container .auth-form .auth-btn {
   margin-top: auto;
 }
-#sign-in .sign-up-form, #sign-up .sign-up-form {
+#sign-in .auth-form-container .sign-up-form, #sign-up .auth-form-container .sign-up-form {
   height: 30rem;
   width: 25rem;
 }
-#sign-in .sign-in-form, #sign-up .sign-in-form {
+#sign-in .auth-form-container .sign-in-form, #sign-up .auth-form-container .sign-in-form {
   height: 25rem;
   width: 20rem;
+}
+#sign-in .auth-form-container .no-account, #sign-up .auth-form-container .no-account {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+#sign-in .auth-form-container .no-account p, #sign-up .auth-form-container .no-account p {
+  color: var(--grey-80);
+}
+#sign-in .auth-form-container .no-account a, #sign-up .auth-form-container .no-account a {
+  color: var(--primary-100);
+  text-decoration: none;
+  font-weight: 500;
+}
+#sign-in .auth-form-container .no-account a:hover, #sign-up .auth-form-container .no-account a:hover {
+  text-decoration: underline;
 }
 
 #booking-page {

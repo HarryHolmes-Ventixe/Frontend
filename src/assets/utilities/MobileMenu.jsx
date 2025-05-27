@@ -32,7 +32,10 @@ const MobileMenu = () => {
           <nav className={`${showMenu ? 'show' : ''}`}>
             <div className="nav-links">
               <Link className="nav-link" to="/" onClick={closeMenu}>Dashboard</Link> 
-              <Link className="nav-link" to="/" onClick={closeMenu}>Sign In/Sign Up</Link>
+              <div>
+                <Link className="nav-link" to="/sign-in" onClick={closeMenu}>Sign In /</Link>
+                <Link className="nav-link" to="/sign-up" onClick={closeMenu}> Sign Up</Link>
+              </div>
               <Link className="nav-link" to="/" onClick={closeMenu}>Events</Link>
             </div>
           </nav>

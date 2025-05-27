@@ -11,15 +11,11 @@ const Nav = () => {
         </div>
          
         <div className="nav-links">
-          {/* <NavLink to="/" className="nav-link">
+          <NavLink to="/" className="nav-link">
             <span className="nav-icon"><i class="fa-light fa-grid-2"></i></span>
             <span className="nav-text">Dashboard</span>
           </NavLink>
           <NavLink to="/events" className="nav-link">
-            <span className="nav-icon"><i className="fa-light fa-ticket"></i></span>
-            <span className="nav-text">Events</span>
-          </NavLink> */}
-          <NavLink to="/" className="nav-link">
             <span className="nav-icon"><i className="fa-light fa-ticket"></i></span>
             <span className="nav-text">Events</span>
           </NavLink>
