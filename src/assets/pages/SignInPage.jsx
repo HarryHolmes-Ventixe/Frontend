@@ -12,11 +12,13 @@ const SignInPage = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        credentials: 'include',
         body: JSON.stringify(formData)
+        // credentials: 'include'
       })
 
       if (res.ok) {
+        const data = await res.json()
+        localStorage.setItem('token', data.token);
         console.log('Sign in successful')
         navigate ('/')
       } else{

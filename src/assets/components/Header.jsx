@@ -1,25 +1,42 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import MobileMenu from '../utilities/MobileMenu';
+import { jwtDecode } from 'jwt-decode';
 
 const Header = () => {
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter(x => x);
 
-  const [user, setUser] = useState(null);
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [userInfo, setUserInfo] = useState({ name: '', email: '' });
 
   useEffect(() => {
-    fetch("https://hh-ventixe-authservice-a2dke6b5hwezgpbe.swedencentral-01.azurewebsites.net/api/auth/me", {
-      credentials: 'include'
-    })
-    .then(res => res.ok ? res.json() : null)
-    .then(data => setUser(data))
-    .catch(() => setUser(null));
-  })
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        if (decoded.exp && Date.now() < decoded.exp * 1000) {
+          setIsSignedIn(true);
+          setUserInfo({
+            name: `${decoded.firstName || ''} ${decoded.lastName || ''}`.trim(),
+            email: decoded.email || ''
+          });
+        } else {
+          setIsSignedIn(false);
+          setUserInfo({ name: '', email: '' });
+        }
+      } catch (e) {
+        setIsSignedIn(false);
+        setUserInfo({ name: '', email: '' });
+      }
+    } else {
+      setIsSignedIn(false);
+      setUserInfo({ name: '', email: '' });
+    }
+  }, [location]);
 
-  // GitHub Copilot helped me retrieve the event title and set it as the breadcrumb item and the page title.
+  // Breadcrumb and page title logic
   const eventTitle = location.state?.title;
-
   const breadcrumbItems = [
     <Link key="home" to="/" className={pathnames.length === 0 ? 'active' : ''}>Dashboard</Link>
   ];
@@ -89,20 +106,23 @@ const Header = () => {
 
             <div className="profile option">
               
-              <Link to="/sign-in" className="btn-sign-in"><i className="fa-solid fa-user"></i></Link>
 
-              {/*replace with logic from the AuthService MVP */}
-              {!user ? (
+              {!isSignedIn ? (
                 <div className="auth-container">
+                  <Link to="/sign-in" className="btn-sign-in"><i className="fa-solid fa-user"></i></Link>
                   <Link to="/sign-in" className="btn-sign-in">Sign In /</Link>
                   <br/>
                   <Link to="/sign-up" className="btn-sign-up">Sign Up</Link>
                 </div>
               ) : (
+                <div className ="auth-container">
+                <Link to="/sign-in" className="btn-sign-in"><i className="fa-solid fa-user"></i></Link>
                 <Link to="/profile" className="profile-info">
-                  <p className="name">{user.firstName} {user.lastName}</p>
-                  <p className="email">{user.email}</p>
+                  <p className="name">{userInfo.name}</p>
+                  <p className="email">{userInfo.email}</p>
                 </Link>
+                </div>
+
               )}
             </div>
           </div>
