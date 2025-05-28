@@ -105,14 +105,15 @@ const Header = () => {
             </div>
 
             <div className="profile option">
-              
-
+ 
               {!isSignedIn ? (
                 <div className="auth-container">
                   <Link to="/sign-in" className="btn-sign-in"><i className="fa-solid fa-user"></i></Link>
+                  <div>
                   <Link to="/sign-in" className="btn-sign-in">Sign In /</Link>
                   <br/>
                   <Link to="/sign-up" className="btn-sign-up">Sign Up</Link>
+                  </div>
                 </div>
               ) : (
                 <div className ="auth-container">

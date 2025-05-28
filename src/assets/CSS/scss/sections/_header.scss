@@ -207,8 +207,19 @@ header{
             }
             
             .auth-container{
-              display: block;
-              font-size: .9rem;
+              display: flex;
+              gap: 1rem;
+              align-items: center;
+              justify-content: center;
+              font-size: .8rem;
+
+              p{
+                margin-block: 0.25rem;
+              }
+
+              i{
+                font-size: 1rem;
+              }
             }
 
             .profile-info{
