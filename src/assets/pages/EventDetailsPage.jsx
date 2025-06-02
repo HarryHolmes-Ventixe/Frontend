@@ -67,6 +67,8 @@ const EventDetails = () => {
       }
     };
 
+    const isPastEvent = new Date(event.eventDate) < new Date();
+
   return (
     <div className="event-details-container">
       <div className="event-details">
@@ -92,7 +94,12 @@ const EventDetails = () => {
           </div>
 
           <div className="details-button">
-            <button className="details-book btn btn--large-r btn--primary" onClick={handleBookNow} onMouseDown={e => e.stopPropagation()}>Book now</button>
+            <button className={`details-book btn btn--large-r ${isPastEvent ? 'btn--secondary' : 'btn--primary'}`}
+              onClick={isPastEvent ? undefined : handleBookNow} 
+              disabled={isPastEvent}
+              onMouseDown={e => e.stopPropagation()}>
+              {isPastEvent ? 'Event Ended' : 'Book now'}
+            </button>
           </div>
         </div>
 

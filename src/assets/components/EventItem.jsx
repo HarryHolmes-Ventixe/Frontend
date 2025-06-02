@@ -46,6 +46,8 @@ const EventItem = ({item}) => {
     }
   };
 
+  const isPastEvent = new Date(item.eventDate) < new Date();
+
   return (      
     <div className="event-card" onClick={handleCardClick}>
       <div className="card-section-one">
@@ -63,7 +65,12 @@ const EventItem = ({item}) => {
       </div>
       <div className="card-section-three">
         <div className="event-price">${item.price}</div>
-        <button className="book btn btn--large-r btn--primary" onClick={handleBookNow} onMouseDown={e => e.stopPropagation()}>Book now</button>
+        <button className={`book btn btn--large-r ${isPastEvent ? 'btn--secondary' : 'btn--primary'}`}
+          onClick={isPastEvent ? undefined : handleBookNow} 
+          disabled={isPastEvent}
+          onMouseDown={e => e.stopPropagation()}>
+          {isPastEvent ? 'Event Ended' : 'Book now'}
+        </button>
       </div>
     </div>
   )
