@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route element={<PortalLayout />}>
           <Route element={<CenterLayout />}>
-            <Route path="/" element={<Navigate to="/events" replace />} />
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/events" element={<EventsPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/events/:id" element={<EventDetailsPage />} />

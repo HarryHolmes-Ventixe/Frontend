@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import MobileMenu from '../utilities/MobileMenu';
 import { jwtDecode } from 'jwt-decode';
 
 const Header = () => {
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter(x => x);
+  const navigate = useNavigate();
 
   const [isSignedIn, setIsSignedIn] = useState(false);
-  const [userInfo, setUserInfo] = useState({ name: '', email: '' });
+  const [userInfo, setUserInfo] = useState({ name: ''});
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -72,6 +73,13 @@ const Header = () => {
             .replace(/-/g, ' ')
             .replace(/^\w/, c => c.toUpperCase());
 
+  const handleSignOut = () => {
+    localStorage.removeItem('token');
+    setIsSignedIn(false);
+    setUserInfo({ name: '', email: '' });
+    navigate('/dashboard');
+  }
+
   return (
     <header>
       <div className="header-container">
@@ -104,28 +112,30 @@ const Header = () => {
               <i className="fa-solid fa-gear"></i>
             </div>
 
-            <div className="profile option">
  
               {!isSignedIn ? (
-                <div className="auth-container">
-                  <Link to="/sign-in" className="btn-sign-in"><i className="fa-solid fa-user"></i></Link>
-                  <div>
-                  <Link to="/sign-in" className="btn-sign-in">Sign In /</Link>
-                  <br/>
-                  <Link to="/sign-up" className="btn-sign-up">Sign Up</Link>
+                <div className="profile option">
+                    <Link to="/sign-in" className="btn-sign-in"><i className="fa-solid fa-user"></i></Link>
+                  <div className="auth-container">
+                    <div>
+                    <Link to="/sign-in" className="btn-sign-in">Sign In /</Link>
+                    <br/>
+                    <Link to="/sign-up" className="btn-sign-up">Sign Up</Link>
+                    </div>
                   </div>
                 </div>
               ) : (
-                <div className ="auth-container">
-                <Link to="/sign-in" className="btn-sign-in"><i className="fa-solid fa-user"></i></Link>
-                <Link to="/profile" className="profile-info">
-                  <p className="name">{userInfo.name}</p>
-                  <p className="email">{userInfo.email}</p>
-                </Link>
-                </div>
+                <div className="profile option">
+                  <p className="btn-sign-in"><i className="fa-solid fa-user"></i></p>
 
+                  <div className ="auth-container">
+                    <Link to="/profile" className="profile-info">
+                      <p className="name">{userInfo.name}</p>
+                    </Link>
+                    <button onClick={handleSignOut} className="btn-sign-out">Sign Out</button>
+                  </div>
+              </div>
               )}
-            </div>
           </div>
         </div>
       </div>

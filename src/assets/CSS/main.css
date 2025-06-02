@@ -668,6 +668,7 @@ header {
   grid-area: header;
   height: 4rem;
   padding: 0.5rem 0.5rem 0 0.5rem;
+  position: relative;
 }
 @media (width >= 768px) {
   header {
@@ -754,6 +755,15 @@ header .header-container .more-container .btn-mobile:hover {
     display: none;
   }
 }
+header .header-container .more-container .btn-sign-out {
+  border: none;
+  background-color: transparent;
+  color: var(--secondary-100);
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
 header .header-container .more-container .navigation nav {
   opacity: 0;
   background-color: var(--primary-90-background);
@@ -794,6 +804,18 @@ header .header-container .more-container .navigation .nav-link {
 header .header-container .more-container .navigation .nav-link:hover {
   color: var(--color-primary-hover);
 }
+header .header-container .more-container .navigation .mobile-auth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+}
+header .header-container .more-container .navigation .mobile-auth .mobile-sign-out {
+  font-size: 1.5rem;
+  font-family: inherit;
+  font-weight: 600;
+}
 header .header-container .more-container .options {
   display: none;
   gap: 1rem;
@@ -811,6 +833,9 @@ header .header-container .more-container .options .option {
 }
 @media (width >= 768px) {
   header .header-container .more-container .options {
+    display: flex;
+  }
+  header .header-container .more-container .options .profile {
     display: flex;
   }
   header .header-container .more-container .options .profile-info, header .header-container .more-container .options .search-bar, header .header-container .more-container .options .auth-container {
@@ -854,13 +879,15 @@ header .header-container .more-container .options .option {
   }
   header .header-container .more-container .options .profile .auth-container {
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
     align-items: center;
     justify-content: center;
     font-size: 0.8rem;
   }
   header .header-container .more-container .options .profile .auth-container p {
     margin-block: 0.25rem;
+    padding: 0;
   }
   header .header-container .more-container .options .profile .auth-container i {
     font-size: 1rem;
