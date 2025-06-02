@@ -83,7 +83,7 @@ const MobileMenu = () => {
               )}
               </div>
               <Link className="nav-link" to="/" onClick={closeMenu}>Dashboard</Link> 
-              <Link className="nav-link" to="/" onClick={closeMenu}>Events</Link>
+              <Link className="nav-link" to="/events" onClick={closeMenu}>Events</Link>
             </div>
           </nav>
         </div>

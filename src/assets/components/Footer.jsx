@@ -13,11 +13,11 @@ const Footer = () => {
           <p>Contact Us</p>
         </div>
         <div className="socials">
-          <i className="fa-brands fa-facebook"></i>
-          <i className="fa-brands fa-x-twitter"></i>
-          <i className="fa-brands fa-instagram"></i>
-          <i className="fa-brands fa-youtube"></i>
-          <i className="fa-brands fa-linkedin"></i>
+          <a href='https://www.facebook.com/' target="_blank"><i className="fa-brands fa-facebook"></i></a>
+          <a href='https://www.x.com/' target="_blank"><i className="fa-brands fa-x-twitter"></i></a>
+          <a href='https://www.instagram.com/' target="_blank"><i className="fa-brands fa-instagram"></i></a>
+          <a href='https://www.youtube.com/' target="_blank"><i className="fa-brands fa-youtube"></i></a>
+          <a href='https://www.linkedin.com/' target="_blank"><i className="fa-brands fa-linkedin"></i></a>
         </div>
       </div>
     </footer>
