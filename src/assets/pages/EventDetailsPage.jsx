@@ -1,9 +1,12 @@
+import { jwtDecode } from 'jwt-decode'
 import React, { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 
 const EventDetails = () => {
   const {id} = useParams()
   const [event, setEvent] = useState({})
+  const navigate = useNavigate()
+  const location = useLocation();
 
   const getEvent = async () => {
     const res = await fetch(`https://hh-ventixe-eventservice-caayb0hvfjczdega.swedencentral-01.azurewebsites.net/api/Events/${id}`)
@@ -18,6 +21,16 @@ const EventDetails = () => {
     getEvent()
   }, [])
 
+  // Github copilot suggested this to make sure the page title is set correctly when redirecting from sign in.
+    useEffect(() => {
+    if (event.title && (!location.state || !location.state.title)) {
+      navigate(location.pathname, {
+        replace: true,
+        state: { ...location.state, title: event.title }
+      });
+    }
+  }, [event.title]);
+
   const formatDate = (string) => {
     const date = new Date(string);
     const dateSection = date.toLocaleDateString('en-US', {
@@ -31,6 +44,28 @@ const EventDetails = () => {
     });
     return `${dateSection} - ${timeSection}`;
   }
+
+  const handleBookNow = (e) => {
+      e.stopPropagation();
+  
+      const token = localStorage.getItem('token');
+      let isSignedIn = false;
+      if (token) {
+        try {
+          const decoded = jwtDecode(token);
+          if (decoded.exp && Date.now() < decoded.exp * 1000) {
+            isSignedIn = true;
+          }
+        } catch (e) {
+          isSignedIn = false;
+        }
+      }
+      if (!isSignedIn) {
+        navigate('/sign-in', { state: { from: location.pathname } });
+      } else {
+        navigate(`/events/${id}/booking`);
+      }
+    };
 
   return (
     <div className="event-details-container">
@@ -57,7 +92,7 @@ const EventDetails = () => {
           </div>
 
           <div className="details-button">
-            <Link to={`/events/${id}/booking`} className="details-book btn btn--large-r btn--primary">Book now</Link>
+            <button className="details-book btn btn--large-r btn--primary" onClick={handleBookNow} onMouseDown={e => e.stopPropagation()}>Book now</button>
           </div>
         </div>
 

@@ -1,8 +1,10 @@
+import { jwtDecode } from 'jwt-decode'
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const EventItem = ({item}) => {
   const navigate = useNavigate()
+  const location = useLocation();
 
   const formatDate = (string) => {
     const date = new Date(string);
@@ -14,13 +16,34 @@ const EventItem = ({item}) => {
     const timeSection = date.toLocaleTimeString('en-US', {
       hour: 'numeric',
       minute: '2-digit',
-      // hour12: false
     });
     return `${dateSection} - ${timeSection}`;
   }
 
-    const handleCardClick = () => {
+  const handleCardClick = () => {
     navigate(`/events/${item.id}`, { state: { title: item.title } });
+  };
+
+  const handleBookNow = (e) => {
+    e.stopPropagation();
+
+    const token = localStorage.getItem('token');
+    let isSignedIn = false;
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        if (decoded.exp && Date.now() < decoded.exp * 1000) {
+          isSignedIn = true;
+        }
+      } catch (e) {
+        isSignedIn = false;
+      }
+    }
+    if (!isSignedIn) {
+      navigate('/sign-in', { state: { from: location.pathname } });
+    } else {
+      navigate(`/events/${item.id}/booking`);
+    }
   };
 
   return (      
@@ -40,8 +63,7 @@ const EventItem = ({item}) => {
       </div>
       <div className="card-section-three">
         <div className="event-price">${item.price}</div>
-        {/* Github copilot helped my issue of having a link within a link. */}
-        <Link to={`/events/${item.id}/booking`} className="book btn btn--large-r btn--primary" onClick={e => e.stopPropagation()} onMouseDown={e => e.stopPropagation()}>Book now</Link>
+        <button className="book btn btn--large-r btn--primary" onClick={handleBookNow} onMouseDown={e => e.stopPropagation()}>Book now</button>
       </div>
     </div>
   )

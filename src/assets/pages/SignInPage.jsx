@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const SignInPage = () => {
   const [formData, setFormData] = useState({email: '', password: ''})
   const navigate = useNavigate()
+  const location = useLocation();
 
   const postSignIn = async (e) => {
     try {
@@ -20,7 +21,8 @@ const SignInPage = () => {
         const data = await res.json()
         localStorage.setItem('token', data.token);
         console.log('Sign in successful')
-        navigate ('/')
+        const redirectTo = location.state?.from || '/'
+        navigate (redirectTo)
       } else{
         console.error('Error signing in')
       }

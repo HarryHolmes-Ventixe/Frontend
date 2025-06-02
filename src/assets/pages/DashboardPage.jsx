@@ -15,20 +15,19 @@ const DashboardPage = () => {
           if (decoded.exp && Date.now() < decoded.exp * 1000) {
             setIsSignedIn(true);
             setUserInfo({
-              name: `${decoded.firstName || ''} ${decoded.lastName || ''}`.trim(),
-              email: decoded.email || ''
+              name: `${decoded.firstName || ''} ${decoded.lastName || ''}`.trim()
             });
           } else {
             setIsSignedIn(false);
-            setUserInfo({ name: '', email: '' });
+            setUserInfo({ name: ''});
           }
         } catch (e) {
           setIsSignedIn(false);
-          setUserInfo({ name: '', email: '' });
+          setUserInfo({ name: ''});
         }
       } else {
         setIsSignedIn(false);
-        setUserInfo({ name: '', email: '' });
+        setUserInfo({ name: ''});
       }
     }, []);
   return (
