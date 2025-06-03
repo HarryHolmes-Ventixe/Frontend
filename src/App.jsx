@@ -9,6 +9,7 @@ import SignInPage from './assets/pages/SignInPage.jsx'
 import SignUpPage from './assets/pages/SignUpPage.jsx'
 import DashboardPage from './assets/pages/DashboardPage.jsx'
 import VerificationPage from './assets/pages/VerificationPage.jsx'
+import { AuthProvider } from './assets/contexts/AuthContext.jsx'
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
 
   return (
     <>
+    <AuthProvider>
       <Routes>
         <Route element={<PortalLayout />}>
           <Route element={<CenterLayout />}>
@@ -30,6 +32,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
+    </AuthProvider>
     </>
   )
 }

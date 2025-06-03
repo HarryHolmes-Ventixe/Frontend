@@ -1117,6 +1117,7 @@ nav .nav-container .signout-container .signout-desktop {
     padding: 0.5rem;
     width: 10rem;
     border-radius: 1rem;
+    font-size: 0.9rem;
     color: var(--secondary-100);
     background-color: var(--cool-grey-20);
   }

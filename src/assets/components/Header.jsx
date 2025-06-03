@@ -2,39 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import MobileMenu from '../utilities/MobileMenu';
 import { jwtDecode } from 'jwt-decode';
+import { useAuth } from '../contexts/AuthContext';
 
 const Header = () => {
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter(x => x);
   const navigate = useNavigate();
 
-  const [isSignedIn, setIsSignedIn] = useState(false);
-  const [userInfo, setUserInfo] = useState({ name: ''});
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        const decoded = jwtDecode(token);
-        if (decoded.exp && Date.now() < decoded.exp * 1000) {
-          setIsSignedIn(true);
-          setUserInfo({
-            name: `${decoded.firstName || ''} ${decoded.lastName || ''}`.trim(),
-            email: decoded.email || ''
-          });
-        } else {
-          setIsSignedIn(false);
-          setUserInfo({ name: '', email: '' });
-        }
-      } catch (e) {
-        setIsSignedIn(false);
-        setUserInfo({ name: '', email: '' });
-      }
-    } else {
-      setIsSignedIn(false);
-      setUserInfo({ name: '', email: '' });
-    }
-  }, [location]);
+  const { isSignedIn, setIsSignedIn, userInfo, setUserInfo } = useAuth();
 
   // Breadcrumb and page title logic
   const eventTitle = location.state?.title;
@@ -129,7 +104,7 @@ const Header = () => {
                   <p className="btn-sign-in"><i className="fa-solid fa-user"></i></p>
 
                   <div className ="auth-container">
-                    <Link to="/profile" className="profile-info">
+                    <Link to="/" className="profile-info">
                       <p className="name">{userInfo.name}</p>
                     </Link>
                     <button onClick={handleSignOut} className="btn-sign-out">Sign Out</button>

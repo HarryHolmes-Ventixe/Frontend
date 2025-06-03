@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 
 const SignInPage = () => {
   const [formData, setFormData] = useState({email: '', password: ''})
   const navigate = useNavigate()
   const location = useLocation();
+  const { checkAuth } = useAuth();
 
   const postSignIn = async (e) => {
     try {
@@ -14,12 +16,12 @@ const SignInPage = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
-        // credentials: 'include'
       })
 
       if (res.ok) {
         const data = await res.json()
         localStorage.setItem('token', data.token);
+        checkAuth()
         console.log('Sign in successful')
         const redirectTo = location.state?.from || '/'
         navigate (redirectTo)

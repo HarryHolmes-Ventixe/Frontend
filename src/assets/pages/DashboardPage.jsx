@@ -1,11 +1,12 @@
 import { jwtDecode } from 'jwt-decode';
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const DashboardPage = () => {
 
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [userInfo, setUserInfo] = useState({ name: ''});
+  const location = useLocation();
   
     useEffect(() => {
       const token = localStorage.getItem('token');
@@ -29,7 +30,7 @@ const DashboardPage = () => {
         setIsSignedIn(false);
         setUserInfo({ name: ''});
       }
-    }, []);
+    }, [location]);
   return (
     <div id="dashboard">
       <div className="logo-container">

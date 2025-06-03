@@ -1,32 +1,16 @@
-import { jwtDecode } from 'jwt-decode';
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext';
 
 const Nav = () => {
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const { isSignedIn, setIsSignedIn } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        try {
-          const decoded = jwtDecode(token);
-          if (decoded.exp && Date.now() < decoded.exp * 1000) {
-            setIsSignedIn(true);
-          } else {
-            setIsSignedIn(false);
-          }
-        } catch (e) {
-          setIsSignedIn(false);
-        }
-      }
-    }, []);
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
     setIsSignedIn(false);
     navigate('/dashboard');
-  }
+  };
   return (
     <nav>
       <div className="nav-container">
