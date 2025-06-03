@@ -8,6 +8,7 @@ import BookingPage from './assets/pages/BookingPage.jsx'
 import SignInPage from './assets/pages/SignInPage.jsx'
 import SignUpPage from './assets/pages/SignUpPage.jsx'
 import DashboardPage from './assets/pages/DashboardPage.jsx'
+import VerificationPage from './assets/pages/VerificationPage.jsx'
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Route path="/events/:id/booking" element={<BookingPage />} />
             <Route path="/sign-in" element={<SignInPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
+            <Route path="/verification" element={<VerificationPage />} />
           </Route>
         </Route>
       </Routes>

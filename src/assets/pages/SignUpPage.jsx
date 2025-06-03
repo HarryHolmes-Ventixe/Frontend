@@ -16,9 +16,15 @@ const SignUpPage = () => {
       })
 
       if (res.ok) {
-        console.log('Sign in successful')
-        navigate ('/')
-      } else{
+        await fetch('https://hh-ventixe-verificationservice-emf8ddcmaeaxe9gf.swedencentral-01.azurewebsites.net/api/verification/send', {
+          method: 'POST',
+          headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({email: formData.email})
+      })
+        navigate('/verification', { state: { email: formData.email } });
+        } else{
         console.error('Error signing up')
         const errorText = await res.text();
         console.error('API response:', errorText);
