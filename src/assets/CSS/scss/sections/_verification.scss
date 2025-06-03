@@ -1,0 +1,48 @@
+#verification{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .verification-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+
+    h2{
+      font-weight: 600;
+    }
+
+    .p-bottom{
+      margin-bottom: 2rem;
+    }
+
+    .verification-form{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .form-group{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: .5rem;
+
+        label{
+          font-size: 0.9rem;
+          color: var(--grey-80);
+        }
+
+        input{
+          padding: .5rem 1rem;
+          border: solid 1px var(--grey-80);
+          border-radius: 1rem;
+          margin-bottom: 1rem;
+        }
+      }
+    }
+  }
+}

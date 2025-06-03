@@ -33,17 +33,19 @@ const VerificationPage = () => {
   }
 
   return (
-    <div>
-      <h2>Enter verification code</h2>
-      <p>We have sent an email to {email} with a verification code</p>
-      <p>Enter the code below to verify your email address</p>
-      <form onSubmit={postVerification}>
-        <div className="form-group">
-          <label htmlFor="verification-code">Verification Code</label>
-          <input type="text" id="verification-code" name="verification-code" value={code} onChange={e => setCode(e.target.value)} required />
-        </div>
-        <button type="submit" className="btn btn--primary">Verify</button>
-      </form>
+    <div id="verification">
+      <div className='verification-container'>
+        <h2>Enter verification code</h2>
+        <p>We have sent an email to {email} with a verification code</p>
+        <p className='p-bottom'>Enter the code below to verify your email address</p>
+        <form onSubmit={postVerification} className='verification-form'>
+          <div className="form-group">
+            <label htmlFor="verification-code">Verification Code</label>
+            <input type="text" id="verification-code" name="verification-code" value={code} onChange={e => setCode(e.target.value)} required />
+          </div>
+          <button type="submit" className="btn btn--large-lr btn--primary">Verify</button>
+        </form>
+      </div>
     </div>
   )
 }
