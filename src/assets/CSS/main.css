@@ -1088,7 +1088,6 @@ nav .nav-container .nav-links a.active, nav .nav-container .nav-links .nav-link.
 }
 nav .nav-container .signout-container {
   margin-top: auto;
-  cursor: pointer;
 }
 nav .nav-container .signout-container .signout-tablet {
   display: flex;
@@ -1121,6 +1120,10 @@ nav .nav-container .signout-container .signout-desktop {
     color: var(--secondary-100);
     background-color: var(--cool-grey-20);
   }
+}
+nav .nav-container .signout-container .signout-tablet, nav .nav-container .signout-container .signout-desktop {
+  cursor: pointer;
+  border: none;
 }
 
 #verification {

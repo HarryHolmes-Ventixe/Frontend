@@ -86,7 +86,6 @@ nav {
 
     .signout-container{
       margin-top: auto;
-      cursor: pointer;
 
       .signout-tablet{
         display: flex;
@@ -116,11 +115,14 @@ nav {
           width: 10rem;
           border-radius: 1rem;
           color: var(--secondary-100);
-          background-color: var(--cool-grey-20);
-          
+          background-color: var(--cool-grey-20);          
         }
       }
 
+      .signout-tablet, .signout-desktop{
+        cursor: pointer;
+        border: none;
+      }
 
     }
   }

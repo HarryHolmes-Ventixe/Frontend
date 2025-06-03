@@ -1,7 +1,32 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { jwtDecode } from 'jwt-decode';
+import React, { useEffect, useState } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 const Nav = () => {
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const decoded = jwtDecode(token);
+          if (decoded.exp && Date.now() < decoded.exp * 1000) {
+            setIsSignedIn(true);
+          } else {
+            setIsSignedIn(false);
+          }
+        } catch (e) {
+          setIsSignedIn(false);
+        }
+      }
+    }, []);
+
+  const handleSignOut = () => {
+    localStorage.removeItem('token');
+    setIsSignedIn(false);
+    navigate('/dashboard');
+  }
   return (
     <nav>
       <div className="nav-container">
@@ -21,16 +46,18 @@ const Nav = () => {
           </NavLink>
         </div> 
 
-        <div className="signout-container">
-        <div className="signout-tablet">
-          <i className="fa-regular fa-arrow-right-from-bracket"></i>
-        </div>
-        
-        <div className="signout-desktop">
-          <i className="fa-regular fa-arrow-right-from-bracket"></i>
-          <p>Sign out</p>
-        </div>
-        </div>
+        {isSignedIn && (
+          <div className="signout-container">
+            <button onClick={handleSignOut} className="signout-tablet">
+              <i className="fa-regular fa-arrow-right-from-bracket"></i>
+            </button>
+            
+            <button onClick={handleSignOut} className="signout-desktop">
+              <i className="fa-regular fa-arrow-right-from-bracket"></i>
+              <p>Sign out</p>
+            </button>
+          </div>
+        )}
       </div>
     </nav>
   )
