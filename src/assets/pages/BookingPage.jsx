@@ -1,49 +1,65 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext';
 
 const BookingPage = () => {
   const {id} = useParams()
   const [event, setEvent] = useState({})
+  const { userInfo } = useAuth();
   const [formData, setFormData] = useState({ eventId: id, firstName: '', lastName: '', email: '', streetName: '', postalCode: '', city: '', ticketQuantity: 1 })
   const navigate = useNavigate()
+
+  // This was suggested by Github Copilot to prevent the form being submitted multiple times.
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
     getEvent()
   }, [])
 
   const getEvent = async () => {
-    const res = await fetch(`https://hh-ventixe-eventservice-caayb0hvfjczdega.swedencentral-01.azurewebsites.net/api/Events/${id}`)
-    
+  console.log('Fetching event with id:', id);
+  const res = await fetch(`https://hh-ventixe-eventservice-caayb0hvfjczdega.swedencentral-01.azurewebsites.net/api/Events/${id}`)
+  if (res.ok) {
+    const response = await res.json()
+    console.log('Event data received:', response);
+    setEvent(response.result)
+  } else {
+    console.error('Failed to fetch event:', res.status);
+  }
+}
+
+const postBooking = async () => {
+  setIsSubmitting(true)
+  try{
+    console.log('Submitting booking with formData:', formData);
+    const res = await fetch(`https://hh-ventixe-bookingservice-ddh2g9c2gsetfng9.swedencentral-01.azurewebsites.net/api/bookings`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+
     if (res.ok) {
-      const response = await res.json()
-      setEvent(response.result)
-    }
-  }
-
-  const postBooking = async () => {
-    try{
-      const res = await fetch(`https://hh-ventixe-bookingservice-ddh2g9c2gsetfng9.swedencentral-01.azurewebsites.net/api/bookings`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      })
-
-      if (res.ok) {
-        console.log('Booking successful')
-        //  You can redirect the user to a confirmation page or show a success message
-        navigate ('/')
-        // navigate(`/events/${id}/confirmation`)
+      const booking = await res.json();
+      console.log('Booking response received:', booking);
+      const bookingId = booking.id;
+      if (bookingId) {
+        navigate(`/booking-confirmation/${bookingId}`);
+      } else {
+        console.error('Booking ID not found in response');
       }
-      else {
-        console.error('Error booking the event')
-      }
-
-    } catch (error) {
-      console.error('Error submitting the booking:', error)
     }
+    else {
+      console.error('Error booking the event, status:', res.status)
+    }
+
+  } catch (error) {
+    console.error('Error submitting the booking:', error)
+  } finally {
+    setIsSubmitting(false)
   }
+}
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -55,10 +71,10 @@ const BookingPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (isSubmitting) return;
     await postBooking()
   }
 
-  // This is if I want to show the date of the event
   const formatDate = (string) => {
     const date = new Date(string);
     const dateSection = date.toLocaleDateString('en-US', {
@@ -72,6 +88,17 @@ const BookingPage = () => {
     });
     return `${dateSection} - ${timeSection}`;
   }
+
+  useEffect(() => {
+    if (userInfo) {
+      setFormData(prev => ({
+        ...prev,
+        firstName: userInfo.firstName || '',
+        lastName: userInfo.lastName || '',
+        email: userInfo.email || ''
+      }))
+    }
+  }, [userInfo])
 
   return (
     <div id="booking-page">
@@ -137,7 +164,7 @@ const BookingPage = () => {
             <p className="cost-value">${event.price * (formData.ticketQuantity || 1)}</p>
           </div>
 
-          <button type="submit" className="confirm-booking btn btn--large-lr btn--primary">Book now</button>
+          <button type="submit" className="confirm-booking btn btn--large-lr btn--primary" disabled = {isSubmitting}>{isSubmitting ? 'Booking...' : 'Book now'}</button>
         </div>
       </form>
     </div>

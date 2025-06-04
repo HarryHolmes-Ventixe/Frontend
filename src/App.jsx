@@ -10,6 +10,7 @@ import SignUpPage from './assets/pages/SignUpPage.jsx'
 import DashboardPage from './assets/pages/DashboardPage.jsx'
 import VerificationPage from './assets/pages/VerificationPage.jsx'
 import { AuthProvider } from './assets/contexts/AuthContext.jsx'
+import BookingConfirmationPage from './assets/pages/BookingConfirmationPage.jsx'
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/events/:id" element={<EventDetailsPage />} />
             <Route path="/events/:id/booking" element={<BookingPage />} />
+            <Route path="/booking-confirmation/:id" element={<BookingConfirmationPage />} />
             <Route path="/sign-in" element={<SignInPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
             <Route path="/verification" element={<VerificationPage />} />

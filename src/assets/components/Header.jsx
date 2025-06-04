@@ -11,6 +11,7 @@ const Header = () => {
 
   const { isSignedIn, setIsSignedIn, userInfo, setUserInfo } = useAuth();
 
+  // Github Copilot suggested this logic so that the breadcrumb doesnt include the Id of the event or the booking.
   // Breadcrumb and page title logic
   const eventTitle = location.state?.title;
   const breadcrumbItems = [
@@ -20,6 +21,27 @@ const Header = () => {
   pathnames.forEach((value, idx) => {
     const to = '/' + pathnames.slice(0, idx + 1).join('/');
     const isLast = idx === pathnames.length - 1;
+
+    if (
+      pathnames[0] === 'booking-confirmation' &&
+      pathnames.length === 2 &&
+      (idx === 1 || idx === 0)
+    ) {
+      if (idx === 1) {
+        breadcrumbItems.push(
+          <span key="/booking-confirmation-sep"> / </span>,
+          <span
+            key="/booking-confirmation"
+            to="/booking-confirmation"
+            className="active"
+          >
+            Booking Confirmation
+          </span>
+        );
+      }
+      return; // Skip the ID in the breadcrumb
+    }
+
     let label = decodeURIComponent(value.charAt(0).toUpperCase() + value.slice(1));
     if (pathnames.includes('booking') && value !== 'booking' && idx === pathnames.length - 2) {
       return;
@@ -40,7 +62,9 @@ const Header = () => {
   });
 
   const pageTitle =
-    eventTitle
+  pathnames[0] === 'booking-confirmation'
+    ? 'Booking Confirmation'
+    : eventTitle
       ? eventTitle
       : pathnames.length === 0
         ? 'Dashboard'

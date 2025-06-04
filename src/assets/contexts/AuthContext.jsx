@@ -6,7 +6,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isSignedIn, setIsSignedIn] = useState(false);
-  const [userInfo, setUserInfo] = useState({ name: '' });
+  const [userInfo, setUserInfo] = useState({ name: '', email: '' });
 
   const checkAuth = () => {
     const token = localStorage.getItem('token');
@@ -15,18 +15,23 @@ export const AuthProvider = ({ children }) => {
         const decoded = jwtDecode(token);
         if (decoded.exp && Date.now() < decoded.exp * 1000) {
           setIsSignedIn(true);
-          setUserInfo({ name: `${decoded.firstName || ''} ${decoded.lastName || ''}`.trim() });
+          setUserInfo({ 
+            firstName: decoded.firstName || '',
+            lastName: decoded.lastName || '',
+            name: `${decoded.firstName || ''} ${decoded.lastName || ''}`, 
+            email:  decoded.email || ''.trim() 
+          });
         } else {
           setIsSignedIn(false);
-          setUserInfo({ name: '' });
+          setUserInfo({ name: '', email: '' });
         }
       } catch (e) {
         setIsSignedIn(false);
-        setUserInfo({ name: '' });
+        setUserInfo({ name: '', email: '' });
       }
     } else {
       setIsSignedIn(false);
-      setUserInfo({ name: '' });
+      setUserInfo({ name: '', email: '' });
     }
   };
 
