@@ -119,17 +119,17 @@ const postBooking = async () => {
       <form className="booking-form" onSubmit={handleSubmit} noValidate>
         <div className="form-input">
           <label>First Name</label>
-          <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
+          <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required disabled />
         </div>
 
         <div className="form-input">
           <label>Last Name</label>
-          <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
+          <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required disabled />
         </div>
 
         <div className="form-input">
           <label>Email</label>
-          <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+          <input type="email" name="email" value={formData.email} onChange={handleChange} required disabled />
         </div>
 
         <div className="form-input">

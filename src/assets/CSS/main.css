@@ -531,6 +531,17 @@ a {
   justify-content: center;
   gap: 1rem;
 }
+#dashboard .dashboard-container .dashboard-content .upcoming-events h2 {
+  color: var(--secondary-100);
+  font-weight: 500;
+}
+#dashboard .dashboard-container .dashboard-content .bookings-list .no-bookings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
 
 .event-details-container {
   display: flex;

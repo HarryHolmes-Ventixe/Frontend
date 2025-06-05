@@ -6,6 +6,7 @@ const DashboardPage = () => {
 
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [userInfo, setUserInfo] = useState({ name: ''});
+  const [bookings, setBookings] = useState([]);
   const location = useLocation();
   
     useEffect(() => {
@@ -31,6 +32,19 @@ const DashboardPage = () => {
         setUserInfo({ name: ''});
       }
     }, [location]);
+
+    useEffect(() => {
+      if (isSignedIn) {
+        fetch(`https://hh-ventixe-bookingservice-ddh2g9c2gsetfng9.swedencentral-01.azurewebsites.net/api/bookings/my-bookings`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        })
+        .then(res => res.json())
+        .then(data => setBookings(data))
+        .catch(() => setBookings([]));
+      }
+    }, [isSignedIn]);
   return (
     <div id="dashboard">
       <div className="logo-container">
@@ -65,9 +79,26 @@ const DashboardPage = () => {
               <p>This is your dashboard, here you can view which events you have booked!</p>
             </div>
             <div className="dashboard-content">
-              <div className="stats-card">
-                <h3>Upcoming Events</h3>
-                <p>2</p>
+              <div className="upcoming-events">
+                <h2>Upcoming Events</h2>
+                <p>{bookings.length}</p>
+              </div>
+
+              <div className="bookings-list">
+                {bookings.length === 0 ? (
+                  <div className="no-bookings">
+                    <p className='no-bookings-text'>No bookings found. Press the button below to book an event today!</p>
+                    <button className='no-bookings-btn btn btn--large-lr btn--primary'>Events</button>
+                  </div>
+                ) : (
+                  <ul>
+                    {bookings.map(booking => (
+                      <li key={booking.id}>
+                        {booking.eventTitle || booking.eventId} — {booking.ticketQuantity} tickets
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             </div>
           </>
