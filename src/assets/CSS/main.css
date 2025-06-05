@@ -101,6 +101,14 @@ a {
   overflow: hidden;
 }
 
+.error {
+  margin: 0;
+  color: red;
+  margin-top: -1rem;
+  font-size: 0.8rem;
+  padding-left: 1rem;
+}
+
 .btn {
   display: flex;
   justify-content: center;
@@ -216,7 +224,7 @@ a {
   min-height: 2.5rem;
 }
 #sign-in .auth-form-container .sign-up-form, #sign-up .auth-form-container .sign-up-form {
-  height: 31rem;
+  height: 34rem;
   width: 25rem;
 }
 #sign-in .auth-form-container .sign-in-form, #sign-up .auth-form-container .sign-in-form {
@@ -343,6 +351,9 @@ a {
   padding: 0.5rem 1rem;
   border: solid 1px var(--grey-80);
   border-radius: 1rem;
+}
+#booking-page .booking-form .form-input .error {
+  padding-top: 1rem;
 }
 #booking-page .booking-form .form-bottom {
   display: flex;
@@ -1305,6 +1316,20 @@ nav .nav-container .signout-container .signout-tablet, nav .nav-container .signo
 #verification .verification-container h2 {
   font-weight: 600;
 }
+#verification .verification-container .p-top {
+  text-align: center;
+}
+#verification .verification-container .p-top .email-highlight {
+  color: var(--primary-100);
+  font-weight: 600;
+}
+#verification .verification-container .p-valid {
+  color: var(--primary-100);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+  padding: 0.5rem;
+}
 #verification .verification-container .p-bottom {
   margin-bottom: 2rem;
 }
@@ -1317,6 +1342,7 @@ nav .nav-container .signout-container .signout-tablet, nav .nav-container .signo
 #verification .verification-container .verification-form .form-group {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   gap: 0.5rem;
 }
@@ -1329,4 +1355,23 @@ nav .nav-container .signout-container .signout-tablet, nav .nav-container .signo
   border: solid 1px var(--grey-80);
   border-radius: 1rem;
   margin-bottom: 1rem;
+  width: 12rem;
+}
+#verification .verification-container .verification-form .form-group .error {
+  padding-bottom: 1rem;
+}
+#verification .verification-container .new-code {
+  margin-top: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  gap: 1rem;
+}
+#verification .verification-container .new-code p {
+  margin: 0;
+}
+#verification .verification-container .new-code .resend-button {
+  font-size: 0.8rem;
 }

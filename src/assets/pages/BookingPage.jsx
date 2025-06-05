@@ -8,6 +8,10 @@ const BookingPage = () => {
   const { userInfo } = useAuth();
   const [formData, setFormData] = useState({ eventId: id, firstName: '', lastName: '', email: '', streetName: '', postalCode: '', city: '', ticketQuantity: 1 })
   const navigate = useNavigate()
+  const [streetError, setStreetError] = useState('');
+  const [postcodeError, setPostcodeError] = useState('');
+  const [cityError, setCityError] = useState('');
+  const [bookingError, setBookingError] = useState('');
 
   // This was suggested by Github Copilot to prevent the form being submitted multiple times.
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -31,6 +35,7 @@ const BookingPage = () => {
 const postBooking = async () => {
   setIsSubmitting(true)
   try{
+    if (!validate()) return;
     console.log('Submitting booking with formData:', formData);
     const res = await fetch(`https://hh-ventixe-bookingservice-ddh2g9c2gsetfng9.swedencentral-01.azurewebsites.net/api/bookings`, {
       method: 'POST',
@@ -100,6 +105,31 @@ const postBooking = async () => {
     }
   }, [userInfo])
 
+  const validate = () => {
+    let valid = true;
+    setStreetError('');
+    setPostcodeError('');
+    setCityError('');
+    setBookingError('');
+
+    if (!formData.streetName) {
+      setStreetError('Street name is required');
+      valid = false;
+    }
+
+    if (!formData.postalCode) {
+      setPostcodeError('Postal code is required');
+      valid = false;
+    }
+
+    if (!formData.city) {
+      setCityError('City is required');
+      valid = false;
+    }
+
+    return valid;
+  }
+
   return (
     <div id="booking-page">
       <h2 className="booking-title">Book Event - {event.title}</h2>
@@ -119,37 +149,40 @@ const postBooking = async () => {
       <form className="booking-form" onSubmit={handleSubmit} noValidate>
         <div className="form-input">
           <label>First Name</label>
-          <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required disabled />
+          <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} disabled />
         </div>
 
         <div className="form-input">
           <label>Last Name</label>
-          <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required disabled />
+          <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} disabled />
         </div>
 
         <div className="form-input">
           <label>Email</label>
-          <input type="email" name="email" value={formData.email} onChange={handleChange} required disabled />
+          <input type="email" name="email" value={formData.email} onChange={handleChange} disabled />
         </div>
 
         <div className="form-input">
           <label>Street Name</label>
-          <input type="text" name="streetName" value={formData.streetName} onChange={handleChange} required/>
+          <input type="text" name="streetName" value={formData.streetName} onChange={handleChange}/>
+          {streetError && <p className="error">{streetError}</p>}
         </div>
 
         <div className="form-input">
           <label>Postal Code</label>
-          <input type="text" name="postalCode" value={formData.postalCode} onChange={handleChange} required />
+          <input type="text" name="postalCode" value={formData.postalCode} onChange={handleChange} />
+          {postcodeError && <p className="error">{postcodeError}</p>}
         </div>
 
         <div className="form-input">
           <label>City</label>
-          <input type="text" name="city" value={formData.city} onChange={handleChange} required />
+          <input type="text" name="city" value={formData.city} onChange={handleChange} />
+          {cityError && <p className="error">{cityError}</p>}
         </div>
 
         <div className="form-input">
           <label>Number of Tickets (Max 4 per booking)</label>
-          <select name="ticketQuantity" value={formData.ticketQuantity || ''} onChange={handleChange} required>
+          <select name="ticketQuantity" value={formData.ticketQuantity || ''} onChange={handleChange}>
             <option value="" disabled>Select tickets</option>
             <option value="1">1</option>
             <option value="2">2</option>

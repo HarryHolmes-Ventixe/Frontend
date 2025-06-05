@@ -7,8 +7,12 @@ const SignInPage = () => {
   const navigate = useNavigate()
   const location = useLocation();
   const { checkAuth } = useAuth();
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [signInError, setSignInError] = useState('');
 
   const postSignIn = async (e) => {
+    if (!validate()) return;
     try {
       const res = await fetch('https://hh-ventixe-authservice-a2dke6b5hwezgpbe.swedencentral-01.azurewebsites.net/api/auth/signin', {
         method: 'POST',
@@ -25,9 +29,9 @@ const SignInPage = () => {
         console.log('Sign in successful')
         const redirectTo = location.state?.from || '/'
         navigate (redirectTo)
-      } else{
-        console.error('Error signing in')
-      }
+      } else {
+      setSignInError('Invalid email or password.');
+    }
     }
     catch (error) {
       console.error('Error signing in:', error)
@@ -47,6 +51,27 @@ const SignInPage = () => {
     await postSignIn()
   }
 
+  const validate = () => {
+    let valid = true;
+    setEmailError('');
+    setPasswordError('');
+    setSignInError('');
+
+    if (!formData.email) {
+      setEmailError('Email is required');
+      valid = false;
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      setEmailError('Email format is invalid');
+      valid = false;
+    }
+
+    if(!formData.password) {
+      setPasswordError('Password is required');
+      valid = false;
+    }
+    return valid;
+  }
+
   return (
     <div id="sign-in">
       <div className="auth-form-container">
@@ -54,12 +79,15 @@ const SignInPage = () => {
           <h1>Sign In</h1>
           <div className="auth-input">
             <label htmlFor="email">Email:</label>
-            <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+            <input type="email" name="email" value={formData.email} onChange={handleChange} />
+            {emailError && <p className="error">{emailError}</p>}
           </div>
 
           <div className="auth-input">
             <label htmlFor="password">Password:</label>
-            <input type="password" name="password" value={formData.password} onChange={handleChange} required />
+            <input type="password" name="password" value={formData.password} onChange={handleChange} />
+            {passwordError && <p className="error">{passwordError}</p>}
+            {signInError && <p className="error">{signInError}</p>}
           </div>
           <button type="submit" className="auth-btn btn btn--large-lr btn--primary">Sign In</button>
         </form>

@@ -15,6 +15,23 @@
       font-weight: 600;
     }
 
+    .p-top{
+      text-align: center;
+
+      .email-highlight{
+        color: var(--primary-100);
+        font-weight: 600;
+      }
+    }
+
+    .p-valid{
+      color: var(--primary-100);
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0;
+      padding: .5rem;
+    }
+
     .p-bottom{
       margin-bottom: 2rem;
     }
@@ -28,6 +45,7 @@
       .form-group{
         display: flex;
         flex-direction: column;
+        align-items: center;
         justify-content: center;
         gap: .5rem;
 
@@ -41,7 +59,30 @@
           border: solid 1px var(--grey-80);
           border-radius: 1rem;
           margin-bottom: 1rem;
+          width: 12rem;
         }
+        
+        .error{
+          padding-bottom: 1rem;
+        }
+      }
+    }
+
+    .new-code{
+      margin-top: .2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: .9rem;
+      gap: 1rem;
+
+      p{
+        margin: 0;
+      }
+
+      .resend-button{
+        font-size: .8rem;
       }
     }
   }
