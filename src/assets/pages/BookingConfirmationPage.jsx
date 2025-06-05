@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const BookingConfirmationPage = () => {
   const {id} = useParams()
   const [event, setEvent] = useState({})
   const [booking, setBooking] = useState({})
+  const navigate= useNavigate()
 
   useEffect(() => {
     const fetchBookingAndEvent = async () => {
@@ -75,7 +76,7 @@ const BookingConfirmationPage = () => {
 
       <div className='confirmation-footer'>
         <p className='return-message'>Press here to return to your dashboard</p>
-        <button className="dashboard-button btn btn--large-lr btn--primary">Dashboard</button>
+        <button className="dashboard-button btn btn--large-lr btn--primary" onClick={() => navigate('/')}>Dashboard</button>
       </div>
     </div>
   )

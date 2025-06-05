@@ -1,13 +1,15 @@
 import { jwtDecode } from 'jwt-decode';
 import React, { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const DashboardPage = () => {
 
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [userInfo, setUserInfo] = useState({ name: ''});
   const [bookings, setBookings] = useState([]);
+  const [events, setEvents] = useState([]);
   const location = useLocation();
+  const navigate = useNavigate();
   
     useEffect(() => {
       const token = localStorage.getItem('token');
@@ -45,6 +47,35 @@ const DashboardPage = () => {
         .catch(() => setBookings([]));
       }
     }, [isSignedIn]);
+
+    useEffect(() => {
+    // Fetch events (same as EventsPage)
+    const fetchEvents = async () => {
+      const res = await fetch('https://hh-ventixe-eventservice-caayb0hvfjczdega.swedencentral-01.azurewebsites.net/api/Events');
+      if (res.ok) {
+        const response = await res.json();
+        setEvents(response.result);
+      }
+    };
+    fetchEvents();
+  }, []);
+
+  const getEventDetails = (eventId) => events.find(e => e.id === eventId);
+
+  const formatDate = (string) => {
+    const date = new Date(string);
+    const dateSection = date.toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    });
+    const timeSection = date.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+    });
+    return `${dateSection} - ${timeSection}`;
+  }
+
   return (
     <div id="dashboard">
       <div className="logo-container">
@@ -81,23 +112,32 @@ const DashboardPage = () => {
             <div className="dashboard-content">
               <div className="upcoming-events">
                 <h2>Upcoming Events</h2>
-                <p>{bookings.length}</p>
               </div>
 
               <div className="bookings-list">
                 {bookings.length === 0 ? (
                   <div className="no-bookings">
                     <p className='no-bookings-text'>No bookings found. Press the button below to book an event today!</p>
-                    <button className='no-bookings-btn btn btn--large-lr btn--primary'>Events</button>
+                    <button className='no-bookings-btn btn btn--large-lr btn--primary' onClick={() => navigate('/events')}>Events</button>
                   </div>
                 ) : (
-                  <ul>
-                    {bookings.map(booking => (
-                      <li key={booking.id}>
-                        {booking.eventTitle || booking.eventId} — {booking.ticketQuantity} tickets
-                      </li>
-                    ))}
-                  </ul>
+                  <div className='bookings-grid'>
+                    {bookings.map(booking => {
+                      const event = getEventDetails(booking.eventId);
+                      return (
+                        <div key={booking.id} className="booking-item">
+                          <div className="booking-image">
+                            <div className='booking-info'>
+                              <h3 className='booking-event-title'>{event.title}</h3>
+                              <div className="booking-event-location"><i className="fa-light fa-location-dot"></i> {event.location}</div>
+                              <div className="booking-event-date"><i className="fa-light fa-calendar-star"></i> {formatDate(event.eventDate)}</div>
+                              <div className='booking-tickets'>{booking.ticketQuantity} tickets</div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 )}
               </div>
             </div>
